@@ -1,4 +1,12 @@
-# This is a basic workflow to help you get started with Actions
+env: 
+  repo:  "https://github.com/farrukh90/artemis.git"
+  repo_region: "us-cetral1"
+  project_id: "fast-ability-382900"
+  app_name: "artemis"
+  tag_new_version: "${GITHUB_SHA}"
+
+ 
+ 
 
 name: CI
 
@@ -25,12 +33,40 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      
+      - name: Clone a repo
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          git clone "${{ env.repo }}"
+
+
+      - name: Checkout branch
+        working-directory: ${{ env.app_name }}
+        run: |
+          git checkout "${{ env.app_version }}"
+
+
+      - name: Build Image
+        working-directory: ${{ env.app_name }}
+        run: |
+          docker build  -t  ${{ env.repo_region }}-docker.pkg.dev/${{ env.project_id }}/${{ env.app_name }}/${{ env.app_name }}:${{ env.tag_new_version }}  . 
+
+
+      # Authenticate to GCP
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{ secrets.SERVICE_ACCOUNT }}'
+
+
+      - name: Authenticate to repository
+        run: |
+          gcloud auth configure-docker  ${{ env.repo_region }}-docker.pkg.dev
+          
+          
+
+      - name: Docker push
+        working-directory: ${{ env.app_name }}
+        run: |
+          docker push  ${{ env.repo_region }}-docker.pkg.dev/${{ env.project_id }}/${{ env.app_name }}/${{ env.app_name }}:${{ env.tag_new_version }}  
+     
