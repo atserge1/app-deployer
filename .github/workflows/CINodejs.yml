@@ -1,6 +1,6 @@
 env:
-  repo:            "https://github.com/PavelTopal/nodejs"
-  app_version:      "master"
+  repo:            "https://github.com/farrukh90/nodejs"
+  app_version:      "1.0.0"
   repo_region:      "us-central1"
   project_id:        "fast-ability-382900"
   app_name:          "nodejs"
