@@ -1,0 +1,1 @@
+{"Modules":[{"Key":"application","Source":"../modules/terraform-helm-local","Dir":"../modules/terraform-helm-local"},{"Key":"namespace","Source":"../modules/terraform-k8s-namespace","Dir":"../modules/terraform-k8s-namespace"},{"Key":"","Source":"","Dir":"."}]}
