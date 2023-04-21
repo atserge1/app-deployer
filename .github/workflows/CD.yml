@@ -1,24 +1,26 @@
 env:
-  repo:            "https://github.com/farrukh90/artemis.git"
-  app_version:      "2.0.0"
-  repo_region:      "us-central1"
-  project_id:        "fast-ability-382900"
-  app_name:          "artemis"
-  tag_new_version:    "${GITHUB_SHA}"
-name: CI
+  # Values for namespace
+  namespace: "test"
+  # Values for application
+  repository:  "us-central1-docker.pkg.dev/terraform-project-PavelTopa/artemis/artemis"
+  tag: "2.0.0"
+  port: "5000"
+  domain: "domainaws.com"
+  environment: "dev"
+  app_name: "artemis"
 
-# Controls when the workflow will run
-on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+# # Controls when the workflow will run
+# on:
+#   # Triggers the workflow on push or pull request events but only for the "main" branch
+#   push:
+#     branches: [ "main" ]
+#   pull_request:
+#     branches: [ "main" ]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+#   # Allows you to run this workflow manually from the Actions tab
+#   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   build:
